@@ -24,7 +24,7 @@ from urllib.error import HTTPError
 import json
 import os
 
-import MySQLdb as db
+# import MySQLdb as db
 
 from flask import Flask
 from flask import request
@@ -54,52 +54,53 @@ def webhook():
     r.headers['Content-Type'] = 'application/json'
     return r
 
-@app.route('/showcase', methods=['GET'])
-def showcase():
-
-
-    print("Request:")
-    #print(json.dumps(req, indent=4))
-
-    res = "this is the return statement"
-
-   # res = json.dumps(res, indent=4)
-    # print(res)
-    r = make_response(res)
-    r.headers['Content-Type'] = 'application/json'
-    return r
-
-@app.route('/owner', methods=['GET'])
-def querying():
-
-
-    print("Request:")
-    #print(json.dumps(req, indent=4))
-    myConnection = db.Connection( host=hostname, user=username, passwd=password, db=database )
-    data = doQuery( myConnection )
-    myConnection.close()
-    res = "this is the return statement"
-
-   # res = json.dumps(res, indent=4)
-    # print(res)
-    r = make_response(data)
-    r.headers['Content-Type'] = 'application/json'
-    return r
-
-
-
-def doQuery( conn ) :
-    cur = conn.cursor()
-
-    names = "sainda"
-
-    cur.execute( "SELECT username, email FROM users" )
-
-
-    for firstname, lastname in cur.fetchall() :
-        names = str(firstname)
-        break
-    return names
+#
+# @app.route('/showcase', methods=['GET'])
+# def showcase():
+#
+#
+#     print("Request:")
+#     #print(json.dumps(req, indent=4))
+#
+#     res = "this is the return statement"
+#
+#    # res = json.dumps(res, indent=4)
+#     # print(res)
+#     r = make_response(res)
+#     r.headers['Content-Type'] = 'application/json'
+#     return r
+#
+# @app.route('/owner', methods=['GET'])
+# def querying():
+#
+#
+#     print("Request:")
+#     #print(json.dumps(req, indent=4))
+#     myConnection = db.Connection( host=hostname, user=username, passwd=password, db=database )
+#     data = doQuery( myConnection )
+#     myConnection.close()
+#     res = "this is the return statement"
+#
+#    # res = json.dumps(res, indent=4)
+#     # print(res)
+#     r = make_response(data)
+#     r.headers['Content-Type'] = 'application/json'
+#     return r
+#
+#
+#
+# def doQuery( conn ) :
+#     cur = conn.cursor()
+#
+#     names = "sainda"
+#
+#     cur.execute( "SELECT username, email FROM users" )
+#
+#
+#     for firstname, lastname in cur.fetchall() :
+#         names = str(firstname)
+#         break
+#     return names
 def processRequest(req):
     if req.get("result").get("action") != "yahooWeatherForecast":
         return {}
