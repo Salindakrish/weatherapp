@@ -24,7 +24,7 @@ from urllib.error import HTTPError
 import json
 import os
 
-# import MySQLdb as db
+import MySQLdb as db
 
 from flask import Flask
 from flask import request
@@ -54,22 +54,22 @@ def webhook():
     r.headers['Content-Type'] = 'application/json'
     return r
 
-#
-# @app.route('/showcase', methods=['GET'])
-# def showcase():
-#
-#
-#     print("Request:")
-#     #print(json.dumps(req, indent=4))
-#
-#     res = "this is the return statement"
-#
-#    # res = json.dumps(res, indent=4)
-#     # print(res)
-#     r = make_response(res)
-#     r.headers['Content-Type'] = 'application/json'
-#     return r
-#
+
+@app.route('/showcase', methods=['GET'])
+def showcase():
+
+
+    print("Request:")
+    #print(json.dumps(req, indent=4))
+
+    res = json.dumps("this is the return statement")
+
+   # res = json.dumps(res, indent=4)
+    # print(res)
+    r = make_response(res)
+    r.headers['Content-Type'] = 'application/json'
+    return r
+
 # @app.route('/owner', methods=['GET'])
 # def querying():
 #
