@@ -54,24 +54,22 @@ def webhook():
     r.headers['Content-Type'] = 'application/json'
     return r
 
-
-# @app.route('/showcase', methods=['POST'])
+#
+# @app.route('/showcase', methods=['GET'])
 # def showcase():
 #
 #
-#     req = request.get_json(silent=True, force=True)
-#
 #     print("Request:")
-#     print(json.dumps(req, indent=4))
+#     #print(json.dumps(req, indent=4))
 #
-#     res = "this is insane"
+#     res = "this is the return statement"
 #
-#     res = json.dumps(res, indent=4)
+#    # res = json.dumps(res, indent=4)
 #     # print(res)
 #     r = make_response(res)
 #     r.headers['Content-Type'] = 'application/json'
 #     return r
-
+#
 # @app.route('/owner', methods=['GET'])
 # def querying():
 #
@@ -104,28 +102,18 @@ def webhook():
 #         break
 #     return names
 def processRequest(req):
-    if req.get("result").get("action") == "yahooWeatherForecast":
-        result = req.get("result")
-        parameters = result.get("parameters")
-        data = parameters.get("date")
-        res = makeWebhookResult2(data)
-        return res
-        # baseurl = "https://query.yahooapis.com/v1/public/yql?"
-        # yql_query = makeYqlQuery(req)
-        # if yql_query is None:
-        #     return {}
-        # yql_url = baseurl + urlencode({'q': yql_query}) + "&format=json"
-        # result = urlopen(yql_url).read()
-        # data = json.loads(result)
-        # res = makeWebhookResult(data)
-        # return res
-    elif req.get("result").get("action") == "delasToday":
-        parameters = result.get("parameters")
-        data = parameters.get("geo-city")
-        res = makeWebhookResult2(data)
-        return res
-    else:
+    if req.get("result").get("action") != "yahooWeatherForecast":
         return {}
+    baseurl = "https://query.yahooapis.com/v1/public/yql?"
+    yql_query = makeYqlQuery(req)
+    if yql_query is None:
+        return {}
+    yql_url = baseurl + urlencode({'q': yql_query}) + "&format=json"
+    result = urlopen(yql_url).read()
+    data = json.loads(result)
+    res = makeWebhookResult(data)
+    return res
+
 
 def makeYqlQuery(req):
     result = req.get("result")
@@ -136,25 +124,6 @@ def makeYqlQuery(req):
 
     return "select * from weather.forecast where woeid in (select woeid from geo.places(1) where text='" + city + "')"
 
-def makeWebhookResult2(date):
-
-    if (date is None):
-        return {}
-
-    # print(json.dumps(item, indent=4))
-
-    speech = "Today the is "+date
-
-    print("Response:")
-    print(speech)
-
-    return {
-        "speech": speech,
-        "displayText": speech,
-        # "data": data,
-        # "contextOut": [],
-        "source": "apiai-weather-webhook-sample"
-    }
 
 def makeWebhookResult(data):
     query = data.get('query')
