@@ -114,7 +114,8 @@ def processRequest(req):
         data = json.loads(result)
         res = makeWebhookResult(data)
         return res
-    # elif req.get("result").get("action") == "delasToday":
+    elif req.get("result").get("action") == "delasToday":
+        return {}
     #     parameters = result.get("parameters")
     #     data = parameters.get("date")
     #     return {
