@@ -112,6 +112,9 @@ def processRequest(req):
         data = json.loads(result)
         res = makeWebhookResult(data)
         return res
+    elif req.get("result").get("action") == "todayDeals":
+        res = makeWebhookResult2(req.get("result").get("parameters").get("date"))
+        return res
     else:
         return {}
 
@@ -125,6 +128,22 @@ def makeYqlQuery(req):
 
     return "select * from weather.forecast where woeid in (select woeid from geo.places(1) where text='" + city + "')"
 
+def makeWebhookResult2(date):
+
+    # print(json.dumps(item, indent=4))
+
+    speech = "Today the weather in " +date
+
+    print("Response:")
+    print(speech)
+
+    return {
+        "speech": speech,
+        "displayText": speech,
+        # "data": data,
+        # "contextOut": [],
+        "source": "apiai-weather-webhook-sample"
+    }
 
 def makeWebhookResult(data):
     query = data.get('query')
