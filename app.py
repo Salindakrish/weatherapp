@@ -114,16 +114,16 @@ def processRequest(req):
         data = json.loads(result)
         res = makeWebhookResult(data)
         return res
-    elif req.get("result").get("action") == "delasToday":
-        parameters = result.get("parameters")
-        data = parameters.get("date")
-        return {
-            "speech": "this is data",
-            "displayText": "this is data",data,"",
-            # "data": data,
-            # "contextOut": [],
-            "source": "apiai-weather-webhook-sample"
-            }
+    # elif req.get("result").get("action") == "delasToday":
+    #     parameters = result.get("parameters")
+    #     data = parameters.get("date")
+    #     return {
+    #         "speech": "this is data",
+    #         "displayText": "this is data",data,"",
+    #         # "data": data,
+    #         # "contextOut": [],
+    #         "source": "apiai-weather-webhook-sample"
+    #         }
     else:
         return {}
 
