@@ -33,10 +33,10 @@ from flask import make_response
 # Flask app should start in global layout
 app = Flask(__name__)
 
-hostname = 'https://host384.hostmonster.com:2083/'
-username = 'mobising_lmsuser'
-password = 'd#H4aOd2v6FM'
-database = 'mobising_lmsdatabase'
+hostname = 'https://host384.hostmonster.com:2083/cpsess4170003428/3rdparty/phpMyAdmin'
+username = 'mobising_sentrif'
+password = 'sentrif'
+database = 'mobising_sentrifugo'
 
 
 @app.route('/webhook', methods=['POST'])
@@ -89,12 +89,12 @@ def webhook():
 #
 #
 #
-def doQuery( conn ) :
+def doQuery( conn ):
     cur = conn.cursor()
 
     names = "sainda"
 
-    cur.execute( "SELECT username, email FROM users" )
+    cur.execute( "SELECT username, email FROM main_users" )
 
 
     for firstname, lastname in cur.fetchall() :
