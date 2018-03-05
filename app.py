@@ -115,7 +115,7 @@ def processRequest(req):
         return res
     elif req.get("result").get("action") == "todayDeals":
         res = dealsAvailable(req.get("result").get("parameters").get("date"))
-        myConnection = db.Connection( host=hostname, user=username, passwd=password, db=database )
+        # myConnection = db.Connection( host=hostname, user=username, passwd=password, db=database )
         # data = doQuery( myConnection )
         # myConnection.close()
         return res
