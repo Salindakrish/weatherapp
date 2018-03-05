@@ -117,20 +117,18 @@ def processRequest(req):
     elif req.get("result").get("action") == "delasToday":
         parameters = result.get("parameters")
         data = parameters.get("date")
+
+        speech = "Today is " + data
+        print("Response:")
+        print(speech)
+
         return {
-            "speech": "this is data",
-            "displayText": "this is data",
+            "speech": speech,
+            "displayText": speech,
             # "data": data,
             # "contextOut": [],
             "source": "apiai-weather-webhook-sample"
         }
-        # return {
-        #     "speech": "this is data",
-        #     "displayText": "this is data",
-        #     # "data": data,
-        #     # "contextOut": [],
-        #     "source": "apiai-weather-webhook-sample"
-        #     }
     else:
         return {}
 
