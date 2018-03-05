@@ -121,7 +121,7 @@ def processRequest(req):
         # return res
     elif req.get("result").get("action") == "delasToday":
         parameters = result.get("parameters")
-        data = parameters.get("date")
+        data = parameters.get("geo-city")
         res = makeWebhookResult2(data)
         return res
     else:
