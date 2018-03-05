@@ -118,11 +118,11 @@ def processRequest(req):
         parameters = result.get("parameters")
         data = parameters.get("date")
         return {
-        "speech": "this is data",
-        "displayText": "this is data",
-        # "data": data,
-        # "contextOut": [],
-        "source": "apiai-weather-webhook-sample"
+            "speech": "this is data",
+            "displayText": "this is data",
+            # "data": data,
+            # "contextOut": [],
+            "source": "apiai-weather-webhook-sample"
         }
         # return {
         #     "speech": "this is data",
