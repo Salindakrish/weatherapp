@@ -24,7 +24,7 @@ from urllib.error import HTTPError
 import json
 import os
 
-# import MySQLdb as db
+import MySQLdb as db
 
 from flask import Flask
 from flask import request
@@ -115,7 +115,7 @@ def processRequest(req):
         return res
     elif req.get("result").get("action") == "todayDeals":
         res = dealsAvailable(req.get("result").get("parameters").get("date"))
-        # myConnection = db.Connection( host=hostname, user=username, passwd=password, db=database )
+        myConnection = db.Connection( host=hostname, user=username, passwd=password, db=database )
         # data = doQuery( myConnection )
         # myConnection.close()
         return res
