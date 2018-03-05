@@ -24,7 +24,7 @@ from urllib.error import HTTPError
 import json
 import os
 
-# import MySQLdb as db
+import MySQLdb as db
 
 from flask import Flask
 from flask import request
@@ -33,9 +33,9 @@ from flask import make_response
 # Flask app should start in global layout
 app = Flask(__name__)
 
-hostname = 'localhost'
-username = 'root'
-password = ''
+hostname = 'https://host384.hostmonster.com:2083/'
+username = 'mobising_lmsuser'
+password = 'd#H4aOd2v6FM'
 database = 'mobising_lmsdatabase'
 
 
@@ -89,18 +89,19 @@ def webhook():
 #
 #
 #
-# def doQuery( conn ) :
-#     cur = conn.cursor()
-#
-#     names = "sainda"
-#
-#     cur.execute( "SELECT username, email FROM users" )
-#
-#
-#     for firstname, lastname in cur.fetchall() :
-#         names = str(firstname)
-#         break
-#     return names
+def doQuery( conn ) :
+    cur = conn.cursor()
+
+    names = "sainda"
+
+    cur.execute( "SELECT username, email FROM users" )
+
+
+    for firstname, lastname in cur.fetchall() :
+        names = str(firstname)
+        break
+    return names
+
 def processRequest(req):
     if req.get("result").get("action") == "yahooWeatherForecast":
         baseurl = "https://query.yahooapis.com/v1/public/yql?"
@@ -113,7 +114,10 @@ def processRequest(req):
         res = makeWebhookResult(data)
         return res
     elif req.get("result").get("action") == "todayDeals":
-        res = makeWebhookResult2(req.get("result").get("parameters").get("date"))
+        res = dealsAvailable(req.get("result").get("parameters").get("date"))
+        myConnection = db.Connection( host=hostname, user=username, passwd=password, db=database )
+        data = doQuery( myConnection )
+        myConnection.close()
         return res
     else:
         return {}
@@ -128,7 +132,7 @@ def makeYqlQuery(req):
 
     return "select * from weather.forecast where woeid in (select woeid from geo.places(1) where text='" + city + "')"
 
-def makeWebhookResult2(date):
+def dealsAvailable(date):
 
     # print(json.dumps(item, indent=4))
 
