@@ -24,7 +24,7 @@ from urllib.error import HTTPError
 import json
 import os
 
-import MySQLdb as db
+# import MySQLdb as db
 
 from flask import Flask
 from flask import request
